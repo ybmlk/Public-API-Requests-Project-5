@@ -1,3 +1,4 @@
+// Golobal declarations
 const body = document.querySelector('body');
 const gallery = document.getElementById('gallery');
 const modalDiv = document.createElement('div');
@@ -16,11 +17,22 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 
 
 function generatePage(people) {
+    createSearchBar()
     createGallery(people);
     createModal(people);
     hideModals();
     eventListner();
 };
+
+function createSearchBar() {
+    const html = `
+        <form action="#" method="get">
+            <input type="search" id="search-input" class="search-input" placeholder="Search...">
+            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+        </form>
+    `
+    document.querySelector('.search-container').innerHTML = html;
+}
 
 
 function createGallery(people) {
@@ -78,15 +90,21 @@ function hideModals() {
     Array.from(modalDiv.children).forEach(modal => modal.style.display = 'none');
 };
 
+
 function eventListner() {
     const cardArray = Array.from(gallery.children);
     const modalArray = Array.from(modalDiv.children);
+    const input = document.querySelector('#search-input');
 
     const firstPrev = modalArray[0].getElementsByClassName('modal-prev btn')[0];
     const lastNext = modalArray[modalArray.length - 1].getElementsByClassName('modal-next btn')[0];
 
     disableButton(firstPrev);
     disableButton(lastNext);
+
+    input.addEventListener('keyup', () => {
+        getSearchResult(input, cardArray);
+    });
 
     cardArray.forEach((card, i) => {
         card.addEventListener('click', () => {
@@ -95,7 +113,7 @@ function eventListner() {
     });
 
     modalArray.forEach(modal => {
-        modal.addEventListener('click', () => {
+        modal.addEventListener('click', event => {
 
             if (event.target.textContent === 'X' || event.target.className === 'modal-container') {
                 modal.style.display = 'none';
@@ -110,7 +128,6 @@ function eventListner() {
             }
         })
     })
-
 }
 
 
@@ -118,4 +135,19 @@ function disableButton(button) {
     button.disabled = true;
     button.style.backgroundColor = 'grey';
     button.style.color = 'black'
+}
+
+
+function getSearchResult(input, cardArray) {
+    const searchTerm = input.value.toLowerCase();
+
+    cardArray.forEach(card => {
+        const name = card.querySelector('#name').textContent.toLowerCase();
+
+        if (name.indexOf(searchTerm) !== -1) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    })
 }
