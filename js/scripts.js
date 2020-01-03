@@ -91,7 +91,7 @@ function hideModals() {
     Array.from(modalDiv.children).forEach(modal => modal.style.display = 'none');
 };
 
-// Hands all user interactions
+// Handles all user interactions
 function eventListner() {
     const cardArray = Array.from(gallery.children);
     const modalArray = Array.from(modalDiv.children);
