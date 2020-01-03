@@ -16,7 +16,7 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background:#E2EDED;
 }
 
 header {
@@ -37,7 +37,7 @@ header h1 {
 .search-input {
     padding: 0.4rem 1rem;
     border: 1px solid rgba(200, 200, 200, 0.9);
-    border-radius: 0.25rem 0 0 0.25rem ;
+    border-radius: 1rem;
     max-width: 20rem;
     transition: .4s ease-out;
     outline: none;
@@ -51,7 +51,7 @@ header h1 {
     cursor: pointer;
     height: 33px;
     background: rgba(245, 245, 245, 0.9);
-    border-radius: 0 0.25rem 0.25rem 0;
+    border-radius: 1rem;
     border: 1px solid rgba(200, 200, 200, 0.9);
     transition: .4s ease-out;
     outline: none;
@@ -87,7 +87,7 @@ header h1 {
     max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
-    background: rgba(245, 245, 245, 0.9);
+    background: #c7ecee;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
