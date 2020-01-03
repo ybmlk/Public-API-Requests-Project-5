@@ -3,7 +3,7 @@ const body = document.querySelector('body');
 const gallery = document.getElementById('gallery');
 const modalDiv = document.createElement('div');
 
-
+// Fetch and parse JSON data received from an API
 function fetchData(url) {
     return fetch(url)
         .then(data => data.json())
@@ -15,7 +15,7 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
     .then(data => data.results)
     .then(people => generatePage(people))
 
-
+// The highest level function. It calls all the other functions
 function generatePage(people) {
     createSearchBar()
     createGallery(people);
@@ -24,6 +24,7 @@ function generatePage(people) {
     eventListner();
 };
 
+// Creates and appends searchbar
 function createSearchBar() {
     const html = `
         <form action="#" method="get">
@@ -34,7 +35,7 @@ function createSearchBar() {
     document.querySelector('.search-container').innerHTML = html;
 }
 
-
+// Creates and appends the cards(people)
 function createGallery(people) {
     let html = ''
     for (let person of people) {
@@ -54,7 +55,7 @@ function createGallery(people) {
     gallery.innerHTML = html;
 };
 
-
+// Creates and appends the modals
 function createModal(people) {
     let html = ''
     for (let person of people) {
@@ -85,33 +86,36 @@ function createModal(people) {
     body.appendChild(modalDiv);
 };
 
-
+// Hides the modals
 function hideModals() {
     Array.from(modalDiv.children).forEach(modal => modal.style.display = 'none');
 };
 
-
+// Hands all user interactions
 function eventListner() {
     const cardArray = Array.from(gallery.children);
     const modalArray = Array.from(modalDiv.children);
     const input = document.querySelector('#search-input');
 
+    // Disables the first 'Prev' button and the last 'Next' button
     const firstPrev = modalArray[0].getElementsByClassName('modal-prev btn')[0];
     const lastNext = modalArray[modalArray.length - 1].getElementsByClassName('modal-next btn')[0];
-
     disableButton(firstPrev);
     disableButton(lastNext);
 
+    // Filters cards based on search input
     input.addEventListener('keyup', () => {
         getSearchResult(input, cardArray);
     });
 
+    // Shows matching modal when a card is clicked
     cardArray.forEach((card, i) => {
         card.addEventListener('click', () => {
             modalArray[i].style.display = 'block';
         })
     });
 
+    // Listens to the 'Close', 'Prev' and 'Next' buttons on the modal
     modalArray.forEach(modal => {
         modal.addEventListener('click', event => {
 
@@ -137,7 +141,7 @@ function disableButton(button) {
     button.style.color = 'black'
 }
 
-
+// compares the search input with the people's name
 function getSearchResult(input, cardArray) {
     const searchTerm = input.value.toLowerCase();
 
