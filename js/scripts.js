@@ -1,3 +1,5 @@
+'use strict';
+
 // Golobal declarations
 const body = document.querySelector('body');
 const gallery = document.getElementById('gallery');
